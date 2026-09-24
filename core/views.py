@@ -13,7 +13,13 @@ def home(request):
 
     skills_by_category = {}
     for skill in Skill.objects.all():
-        cat_label = skill.get_category_display()
+        # Django generates this method dynamically, so access it defensively for
+        # static type checkers that cannot see generated model methods.
+        get_category_display = getattr(skill, 'get_category_display', None)
+        cat_label = (
+            get_category_display() if callable(get_category_display)
+            else str(skill.category)
+        )
         if cat_label not in skills_by_category:
             skills_by_category[cat_label] = []
         skills_by_category[cat_label].append(skill)

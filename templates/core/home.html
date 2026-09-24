@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tisha Patience Malongo — Software Engineer</title>
-  <meta name="description" content="Junior software and AI engineer building with Python and Django." />
+  <title>Tisha Patience Malongo — Software & AI Engineer</title>
+  <meta name="description" content="Junior software and AI engineer based in Entebbe, Uganda. Building with Python, Django, and LLMs." />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -13,33 +13,13 @@
       theme: {
         extend: {
           colors: {
-            'brand': '#FF5C00',
-            'brand-dim': '#CC4900',
-            'ink': '#0A0A0A',
-            'surface': '#141414',
-            'surface-2': '#1C1C1C',
-            'border': '#2A2A2A',
-            'text-primary': '#F0EDE8',
-            'text-secondary': '#999490',
-            'text-muted': '#555250',
+            brand: '#FF5C00',
+            'brand-hover': '#ff7526',
+            'brand-dim': '#d94e00',
           },
           fontFamily: {
-            sans: ['"Inter"', 'system-ui', 'sans-serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
-          },
-          animation: {
-            'fade-up': 'fadeUp 0.5s ease forwards',
-            'blink': 'blink 1s step-end infinite',
-          },
-          keyframes: {
-            fadeUp: {
-              '0%': { opacity: '0', transform: 'translateY(16px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            blink: {
-              '0%, 100%': { opacity: '1' },
-              '50%': { opacity: '0' },
-            },
           },
         },
       },
@@ -48,191 +28,425 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
   <script>
-    if (localStorage.getItem('theme') === 'light') {
-      document.getElementById('html-root').classList.add('light');
-    }
+    // Apply theme before render to avoid flash
+    (function() {
+      if (localStorage.getItem('theme') === 'light') {
+        document.getElementById('html-root').classList.add('light');
+      }
+    })();
   </script>
 </head>
 
-<body class="text-text-primary font-sans antialiased">
-
-  <div class="page-bg" aria-hidden="true">
-    <div class="page-bg-glow"></div>
-    <div class="page-bg-pattern"></div>
-  </div>
+<body class="font-sans antialiased overflow-x-hidden">
 
   <!-- ── NAV ── -->
-  <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md">
-    <div class="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between">
-      <a href="#" class="font-semibold text-text-primary tracking-tight text-sm hover:text-brand transition-colors">Tisha Patience Malongo</a>
-      <div class="hidden md:flex items-center gap-6 text-sm text-text-secondary">
-        <a href="#about" class="hover:text-text-primary transition-colors">About</a>
-        <a href="#skills" class="hover:text-text-primary transition-colors">Skills</a>
-        <a href="#projects" class="hover:text-text-primary transition-colors">Projects</a>
-        <a href="#contact" class="hover:text-text-primary transition-colors">Contact</a>
+  <header class="fixed top-0 left-0 right-0 z-50 nav-blur border-b" style="border-color:var(--border)">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 h-14 flex items-center justify-between gap-4">
+
+      <!-- Logo + available badge -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="#" class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-brand"></span>
+          <span class="font-bold text-sm" style="color:var(--text-primary)">Tisha Patience Malongo</span>
+        </a>
+        <span class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full border"
+              style="border-color:var(--border); background:var(--surface); color:var(--text-secondary)">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+          Available for work
+        </span>
       </div>
-      <div class="flex items-center gap-3">
-        <button id="theme-toggle" type="button" class="theme-toggle"
-          aria-label="Toggle light/dark mode" aria-pressed="false">
-          <span class="theme-toggle-track">
-            <span class="theme-toggle-thumb" aria-hidden="true"></span>
-            <svg class="theme-toggle-icon theme-toggle-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="4"/>
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-            </svg>
-            <svg class="theme-toggle-icon theme-toggle-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-          </span>
+
+      <!-- Nav links -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium" style="color:var(--text-secondary)">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#journey" class="nav-link">Journey</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#vision" class="nav-link">Vision</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <!-- Right side -->
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Theme toggle — sun/moon pill style -->
+        <button id="theme-toggle" onclick="toggleTheme()"
+          class="theme-toggle-pill flex items-center gap-0.5 p-1 rounded-full border transition-all"
+          style="border-color:var(--border); background:var(--surface)"
+          title="Toggle theme">
+          <span class="theme-sun w-6 h-6 rounded-full flex items-center justify-center text-xs transition-all">☀️</span>
+          <span class="theme-moon w-6 h-6 rounded-full flex items-center justify-center text-xs transition-all">🌙</span>
         </button>
-        <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener"
-           class="text-xs font-medium bg-brand text-ink px-3 py-1.5 rounded hover:bg-brand-dim transition-colors">
-          GitHub ↗
+        <a href="#contact"
+           class="text-xs font-bold bg-brand text-[#0A0A0A] px-4 py-2 rounded-lg hover:bg-brand-hover transition-colors flex items-center gap-1.5">
+          Get in touch <span>↗</span>
         </a>
       </div>
     </div>
-  </nav>
+  </header>
 
-  <main class="relative z-10">
+  <main>
 
     <!-- ── HERO ── -->
-    <section id="about" class="min-h-screen flex flex-col justify-center pt-12 px-6">
-      <div class="max-w-5xl mx-auto w-full">
+    <section id="about" class="min-h-screen flex flex-col justify-center pt-14 px-5 sm:px-6">
+      <div class="max-w-6xl mx-auto w-full py-16">
 
-        <div class="flex flex-col md:flex-row md:items-center gap-10">
+        <!-- Availability badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-mono font-semibold mb-8 reveal"
+             style="border-color:rgba(255,92,0,0.3); background:rgba(255,92,0,0.08); color:#FF5C00">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand animate-pulse"></span>
+          AVAILABLE FOR ROLES & COLLABORATIONS
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           <!-- Left: text -->
-          <div class="flex-1">
-            <p class="text-brand text-sm font-medium mb-3 opacity-0 animate-fade-up" style="animation-delay:0.1s;animation-fill-mode:forwards;">
-              Software & AI Engineer
-            </p>
-
-            <h1 class="font-bold leading-tight mb-4 opacity-0 animate-fade-up" style="animation-delay:0.2s;animation-fill-mode:forwards;">
-              <span class="block text-[clamp(2.2rem,5vw,4.5rem)] text-text-primary">Tisha Patience</span>
-              <span class="block text-[clamp(2.2rem,5vw,4.5rem)] text-brand">Malongo.</span>
+          <div class="reveal">
+            <h1 class="font-extrabold leading-none tracking-tight mb-4" style="color:var(--text-primary)">
+              <span class="block text-[clamp(2.8rem,7vw,5.5rem)]">Tisha Patience</span>
+              <span class="block text-[clamp(2.8rem,7vw,5.5rem)]">Malongo.</span>
             </h1>
 
-            <div class="text-text-secondary text-base mb-5 opacity-0 animate-fade-up font-mono" style="animation-delay:0.3s;animation-fill-mode:forwards;">
-              <span id="typed-text"></span><span class="animate-blink text-brand">|</span>
+            <div class="font-mono text-brand text-lg mb-6 h-7">
+              <span id="typed-text"></span><span class="typed-cursor">|</span>
             </div>
 
-            <p class="text-text-secondary leading-relaxed mb-8 opacity-0 animate-fade-up text-[15px] max-w-lg" style="animation-delay:0.4s;animation-fill-mode:forwards;">
-              Junior software and AI engineer based in Entebbe, Uganda. I build web applications with Python and Django, and I'm currently studying Software and AI Engineering at Turing College. Passionate about clean code, practical AI, and building tools that solve real problems. Open to junior roles and internships.
+            <p class="text-base leading-relaxed mb-8 max-w-lg" style="color:var(--text-secondary)">
+              Junior software and AI engineer based in Entebbe, Uganda. I build web applications with Python and Django, integrate LLMs using the OpenAI API, and write clean, tested code with tools like pytest, mypy, and Ruff. Currently studying Software and AI Engineering at Turing College. Open to junior roles and internships.
             </p>
 
-            <div class="flex flex-wrap gap-3 opacity-0 animate-fade-up" style="animation-delay:0.5s;animation-fill-mode:forwards;">
+            <div class="flex flex-wrap gap-3 mb-10">
               <a href="#projects"
-                 class="text-sm font-medium bg-brand text-ink px-5 py-2.5 rounded hover:bg-brand-dim transition-colors">
-                View my work
+                 class="inline-flex items-center gap-2 bg-brand text-[#0A0A0A] font-bold text-sm px-5 py-2.5 rounded-lg hover:bg-brand-hover transition-colors">
+                Explore my work <span>↓</span>
               </a>
-              <a href="#contact"
-                 class="text-sm font-medium border border-border text-text-secondary px-5 py-2.5 rounded hover:border-brand hover:text-brand transition-all">
-                Get in touch
+              <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 font-semibold text-sm px-5 py-2.5 rounded-lg border transition-colors"
+                 style="border-color:var(--border); color:var(--text-secondary); background:var(--surface)">
+                ⌥ GitHub Profile
               </a>
-              <a href="{% static 'cv.pdf' %}" download
-                 class="text-sm font-medium border border-border text-text-secondary px-5 py-2.5 rounded hover:border-brand hover:text-brand transition-all">
-                Download CV
-              </a>
+            </div>
+
+            <!-- Stats row -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="stat-card p-4 rounded-xl border" style="background:var(--surface); border-color:var(--border)">
+                <div class="font-mono font-bold text-xl" style="color:var(--text-primary)">04+</div>
+                <div class="font-mono text-xs uppercase tracking-wider mt-1" style="color:var(--text-muted)">Projects Built</div>
+              </div>
+              <div class="stat-card p-4 rounded-xl border" style="background:var(--surface); border-color:var(--border)">
+                <div class="font-mono font-bold text-xl" style="color:var(--text-primary)">14+</div>
+                <div class="font-mono text-xs uppercase tracking-wider mt-1" style="color:var(--text-muted)">Tech Stack Tools</div>
+              </div>
+              <div class="stat-card p-4 rounded-xl border" style="background:var(--surface); border-color:var(--border)">
+                <div class="font-mono font-bold text-xl" style="color:var(--text-primary)">100%</div>
+                <div class="font-mono text-xs uppercase tracking-wider mt-1" style="color:var(--text-muted)">Test Commitment</div>
+              </div>
+              <div class="stat-card p-4 rounded-xl border" style="background:var(--surface); border-color:var(--border)">
+                <div class="font-mono font-bold text-xl text-brand">AI Eng</div>
+                <div class="font-mono text-xs uppercase tracking-wider mt-1" style="color:var(--text-muted)">Next Focus</div>
+              </div>
             </div>
           </div>
 
-          <!-- Right: photo -->
-          <div class="flex-shrink-0 opacity-0 animate-fade-up" style="animation-delay:0.3s;animation-fill-mode:forwards;">
-            <div class="w-52 h-52 md:w-72 md:h-72 rounded-2xl overflow-hidden border border-border">
+          <!-- Right: photo with floating tags -->
+          <div class="relative flex items-center justify-center reveal">
+            <!-- Orbital rings -->
+            <div class="absolute w-72 h-72 md:w-80 md:h-80 rounded-full border border-dashed border-brand/20 animate-spin-slow"></div>
+            <div class="absolute w-64 h-64 md:w-72 md:h-72 rounded-full border border-brand/10 animate-spin-slow-reverse"></div>
+
+            <!-- Photo — grayscale by default, color on hover -->
+            <div class="photo-ring relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-2 border-brand/50 z-10">
               <img src="{% static 'images/profile.jpg' %}" alt="Tisha Patience Malongo"
-                   class="w-full h-full object-cover object-top" />
+                   class="photo-img w-full h-full object-cover object-top" />
+            </div>
+
+            <!-- Floating tag: top right — floats up/down -->
+            <div class="absolute top-4 right-0 md:-right-6 z-20 flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-mono animate-float"
+                 style="background:var(--surface); border-color:var(--border); color:var(--text-secondary); box-shadow: 0 8px 24px rgba(0,0,0,0.3)">
+              <span class="text-brand text-base">⚙</span>
+              <div>
+                <div class="font-bold" style="color:var(--text-primary)">AI Engineer</div>
+                <div style="color:var(--text-muted)">Full-Stack Dev</div>
+              </div>
+            </div>
+
+            <!-- Floating tag: bottom left — floats delayed -->
+            <div class="absolute bottom-8 left-0 md:-left-6 z-20 flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-mono animate-float-delayed"
+                 style="background:var(--surface); border-color:var(--border); color:var(--text-secondary); box-shadow: 0 8px 24px rgba(0,0,0,0.3)">
+              <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              <div>
+                <div class="font-bold" style="color:var(--text-primary)">Open to Roles</div>
+                <div style="color:var(--text-muted)">Junior Software Eng</div>
+              </div>
             </div>
           </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── JOURNEY ── -->
+    <section id="journey" class="py-20 px-5 sm:px-6 border-t" style="border-color:var(--border)">
+      <div class="max-w-6xl mx-auto space-y-12">
+
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-mono font-semibold uppercase tracking-widest text-brand mb-2 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+            How I got here
+          </p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight" style="color:var(--text-primary)">
+            A continuous progression.
+          </h2>
+          <p class="mt-3 text-base" style="color:var(--text-secondary)">
+            From computer science fundamentals to building end-to-end Python web systems and exploring modern AI engineering.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden border reveal"
+             style="background:var(--border); border-color:var(--border)">
+
+          <!-- Card 1 -->
+          <article class="journey-card p-6 sm:p-7 flex flex-col justify-between" style="background:var(--surface)">
+            <div class="space-y-4">
+              <span class="font-mono text-xs font-bold" style="color:var(--text-muted)">01</span>
+              <h3 class="text-lg font-bold" style="color:var(--text-primary)">Foundations</h3>
+              <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+                Computer science core, algorithms, problem solving, discrete math concepts and modern web basics.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t" style="border-color:var(--border)">
+              <p class="font-mono text-xs font-semibold text-brand">CS Fundamentals • Problem Solving • Git</p>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="journey-card p-6 sm:p-7 flex flex-col justify-between" style="background:var(--surface)">
+            <div class="space-y-4">
+              <span class="font-mono text-xs font-bold" style="color:var(--text-muted)">02</span>
+              <h3 class="text-lg font-bold" style="color:var(--text-primary)">Full-stack Python</h3>
+              <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+                Deep dive into backend web engineering with Django, APIs, authentication, CRUD systems and clean application structure.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t" style="border-color:var(--border)">
+              <p class="font-mono text-xs font-semibold text-brand">Python • Django • SQL • Git</p>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="journey-card p-6 sm:p-7 flex flex-col justify-between" style="background:var(--surface)">
+            <div class="space-y-4">
+              <span class="font-mono text-xs font-bold" style="color:var(--text-muted)">03</span>
+              <h3 class="text-lg font-bold" style="color:var(--text-primary)">Software engineering</h3>
+              <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+                Focused on testing, OOP, maintainable architecture, CI, linting and writing code that is easier to change.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t" style="border-color:var(--border)">
+              <p class="font-mono text-xs font-semibold text-brand">pytest • Ruff • uv • CI</p>
+            </div>
+          </article>
+
+          <!-- Card 4 — Active -->
+          <article class="journey-card-active p-6 sm:p-7 flex flex-col justify-between border-t-2 border-t-brand"
+                   style="background: linear-gradient(to bottom, rgba(255,92,0,0.12), var(--surface))">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs font-bold" style="color:var(--text-muted)">04</span>
+                <span class="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-brand bg-brand/10 px-2 py-0.5 rounded-full border border-brand/30">
+                  ✦ Active Focus
+                </span>
+              </div>
+              <h3 class="text-lg font-bold" style="color:var(--text-primary)">AI engineering</h3>
+              <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+                Now learning how to build reliable AI applications around LLMs, APIs, prompts, validation and evaluation.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t" style="border-color:var(--border)">
+              <p class="font-mono text-xs font-semibold text-brand">OpenAI • LLMs • Prompting • Evaluation</p>
+            </div>
+          </article>
 
         </div>
       </div>
     </section>
 
     <!-- ── SKILLS ── -->
-    <section id="skills" class="py-16 px-6 border-t border-border">
-      <div class="max-w-5xl mx-auto">
+    <section id="skills" class="py-20 px-5 sm:px-6 border-t" style="border-color:var(--border)">
+      <div class="max-w-6xl mx-auto space-y-10">
 
-        <div class="mb-10">
-          <p class="text-brand text-xs font-semibold uppercase tracking-widest mb-1">What I work with</p>
-          <h2 class="text-2xl font-bold text-text-primary">Skills</h2>
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-mono font-semibold uppercase tracking-widest text-brand mb-2 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+            My Toolkit
+          </p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight" style="color:var(--text-primary)">
+            Skills I use to build.
+          </h2>
+          <p class="mt-3 text-base" style="color:var(--text-secondary)">
+            My stack is growing from backend Python & full-stack development into AI application engineering.
+          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {% for category, skills in skills_by_category.items %}
-          <div class="reveal">
-            <h3 class="text-xs font-semibold uppercase tracking-widest text-text-muted mb-4">{{ category }}</h3>
-            <div class="flex flex-wrap gap-2">
-              {% for skill in skills %}
-              <span class="skill-tag text-sm font-medium px-3 py-1.5 rounded-full border border-border text-text-secondary hover:border-brand hover:text-brand transition-all duration-200">
-                {{ skill.name }}
-              </span>
-              {% endfor %}
+        <!-- Filter tabs -->
+        <div class="flex flex-wrap gap-2 reveal" id="skill-filters">
+          <button onclick="filterSkills('all')" class="skill-filter-btn active font-mono text-xs font-semibold px-4 py-2 rounded-full border transition-all" data-filter="all">
+            ⚡ All Skills
+          </button>
+          <button onclick="filterSkills('languages')" class="skill-filter-btn font-mono text-xs font-semibold px-4 py-2 rounded-full border transition-all" data-filter="languages">
+            &lt;/&gt; Languages
+          </button>
+          <button onclick="filterSkills('frameworks')" class="skill-filter-btn font-mono text-xs font-semibold px-4 py-2 rounded-full border transition-all" data-filter="frameworks">
+            ▷ Frameworks
+          </button>
+          <button onclick="filterSkills('tools')" class="skill-filter-btn font-mono text-xs font-semibold px-4 py-2 rounded-full border transition-all" data-filter="tools">
+            ⚙ Tools & DevOps
+          </button>
+          <button onclick="filterSkills('databases')" class="skill-filter-btn font-mono text-xs font-semibold px-4 py-2 rounded-full border transition-all" data-filter="databases">
+            ▤ Databases
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 reveal">
+
+          <!-- Skills list -->
+          <div class="lg:col-span-2 rounded-2xl border p-6 space-y-6" style="background:var(--surface); border-color:var(--border)">
+            {% for category, skills in skills_by_category.items %}
+            <div class="skill-group" data-category="{{ skills.0.category }}">
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-1 h-4 rounded-full bg-brand"></div>
+                <h3 class="font-mono text-xs font-bold uppercase tracking-widest" style="color:var(--text-muted)">{{ category }}</h3>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {% for skill in skills %}
+                <div class="skill-item flex items-center justify-between px-3.5 py-2.5 rounded-lg border transition-all"
+                     style="background:var(--bg); border-color:var(--border)">
+                  <span class="text-sm font-semibold" style="color:var(--text-primary)">{{ skill.name }}</span>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% empty %}
+            <p class="text-sm" style="color:var(--text-muted)">
+              No skills yet — add them via <a href="/admin" class="text-brand hover:underline">admin panel</a>.
+            </p>
+            {% endfor %}
+          </div>
+
+          <!-- Currently sharpening sidebar -->
+          <div class="rounded-2xl border p-6" style="background: linear-gradient(to bottom, rgba(255,92,0,0.08), var(--surface)); border-color:var(--border)">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-brand text-xs">✦</span>
+              <span class="font-mono text-xs font-bold uppercase tracking-widest text-brand">Active Focus</span>
+            </div>
+            <h3 class="text-xl font-extrabold mb-6" style="color:var(--text-primary)">Currently Sharpening</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded flex items-center justify-center text-xs font-mono font-bold text-brand border border-brand/30 bg-brand/10">01</span>
+                <span class="text-sm font-medium pt-0.5" style="color:var(--text-primary)">LLM application design</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded flex items-center justify-center text-xs font-mono font-bold text-brand border border-brand/30 bg-brand/10">02</span>
+                <span class="text-sm font-medium pt-0.5" style="color:var(--text-primary)">Prompt engineering & evaluation</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded flex items-center justify-center text-xs font-mono font-bold text-brand border border-brand/30 bg-brand/10">03</span>
+                <span class="text-sm font-medium pt-0.5" style="color:var(--text-primary)">AI testing & reliability</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded flex items-center justify-center text-xs font-mono font-bold text-brand border border-brand/30 bg-brand/10">04</span>
+                <span class="text-sm font-medium pt-0.5" style="color:var(--text-primary)">Production-ready Python</span>
+              </div>
+            </div>
+            <div class="mt-6 pt-4 border-t" style="border-color:var(--border)">
+              <p class="font-mono text-xs leading-relaxed text-brand">
+                Building test-driven tools and evaluating generative agent patterns with Python and modern APIs.
+              </p>
             </div>
           </div>
-          {% empty %}
-          <p class="text-text-muted col-span-2 text-sm">
-            No skills yet — add them via the <a href="/admin" class="text-brand hover:underline">admin panel</a>.
-          </p>
-          {% endfor %}
+
         </div>
       </div>
     </section>
 
     <!-- ── PROJECTS ── -->
-    <section id="projects" class="py-16 px-6 border-t border-border">
-      <div class="max-w-5xl mx-auto">
+    <section id="projects" class="py-20 px-5 sm:px-6 border-t" style="border-color:var(--border)">
+      <div class="max-w-6xl mx-auto space-y-10">
 
-        <div class="mb-10">
-          <p class="text-brand text-xs font-semibold uppercase tracking-widest mb-1">What I've built</p>
-          <h2 class="text-2xl font-bold text-text-primary">Projects</h2>
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 reveal">
+          <div class="max-w-2xl">
+            <p class="text-xs font-mono font-semibold uppercase tracking-widest text-brand mb-2 flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+              Selected Work
+            </p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight" style="color:var(--text-primary)">
+              Things I've actually built.
+            </h2>
+            <p class="mt-3 text-base" style="color:var(--text-secondary)">
+              Projects are where I turn learning into working software — from Django backends to AI-powered tools.
+            </p>
+          </div>
         </div>
 
+        <!-- Featured project cards -->
         {% if featured_projects %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {% for project in featured_projects %}
-          <article class="project-card reveal border border-border bg-surface rounded-xl overflow-hidden hover:border-brand/50 transition-all duration-300 group flex flex-col">
+          <article class="project-card reveal rounded-2xl border overflow-hidden flex flex-col transition-all duration-300 group"
+                   style="background:var(--surface); border-color:var(--border)">
 
-            {% if project.image %}
-            <div class="w-full h-40 overflow-hidden">
+            <!-- Image area -->
+            <div class="w-full h-44 overflow-hidden relative" style="background:var(--bg)">
+              {% if project.image %}
               <img src="{{ project.image.url }}" alt="{{ project.title }}"
                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              {% else %}
+              <div class="w-full h-full flex items-center justify-center">
+                <span class="font-mono font-bold text-5xl" style="color:var(--border)">
+                  {{ project.title|slice:":1" }}
+                </span>
+              </div>
+              {% endif %}
+              <div class="absolute top-3 right-3 font-mono text-xs font-bold px-2 py-0.5 rounded border"
+                   style="background:var(--surface); border-color:var(--border); color:var(--text-muted)">
+                {{ forloop.counter|stringformat:"02d" }}
+              </div>
             </div>
-            {% endif %}
 
             <div class="p-5 flex flex-col flex-1">
-              <h3 class="font-semibold text-text-primary text-base mb-2 group-hover:text-brand transition-colors duration-200">
+              <h3 class="font-bold text-base mb-2 group-hover:text-brand transition-colors" style="color:var(--text-primary)">
                 {{ project.title }}
               </h3>
-
-              <p class="text-text-secondary text-sm leading-relaxed mb-4 flex-1">
+              <p class="text-sm leading-relaxed mb-4 flex-1" style="color:var(--text-secondary)">
                 {{ project.description }}
               </p>
 
               <div class="flex flex-wrap gap-1.5 mb-4">
                 {% for tech in project.get_tech_list %}
-                <span class="text-xs border border-border text-text-muted px-2 py-0.5 rounded">
+                <span class="font-mono text-xs px-2 py-0.5 rounded border" style="background:var(--bg); border-color:var(--border); color:var(--text-muted)">
                   {{ tech }}
                 </span>
                 {% endfor %}
               </div>
 
-              <div class="flex gap-4 text-xs font-medium">
-                {% if project.github_url %}
-                <a href="{{ project.github_url }}" target="_blank" rel="noopener"
-                   class="text-text-secondary hover:text-brand transition-colors">
-                  GitHub ↗
-                </a>
-                {% endif %}
-                {% if project.live_url %}
-                <a href="{{ project.live_url }}" target="_blank" rel="noopener"
-                   class="text-brand hover:text-brand-dim transition-colors">
-                  Live demo ↗
-                </a>
-                {% endif %}
+              <div class="flex items-center justify-between pt-3 border-t" style="border-color:var(--border)">
+                <div class="flex gap-4 text-xs font-semibold">
+                  {% if project.github_url %}
+                  <a href="{{ project.github_url }}" target="_blank" rel="noopener"
+                     class="flex items-center gap-1 transition-colors hover:text-brand" style="color:var(--text-secondary)">
+                    ⌥ Code
+                  </a>
+                  {% endif %}
+                  {% if project.live_url %}
+                  <a href="{{ project.live_url }}" target="_blank" rel="noopener"
+                     class="flex items-center gap-1 text-brand hover:text-brand-hover transition-colors">
+                    ↗ Live demo
+                  </a>
+                  {% endif %}
+                </div>
               </div>
             </div>
           </article>
@@ -240,24 +454,34 @@
         </div>
         {% endif %}
 
+        <!-- Other projects compact list -->
         {% with other_projects=all_projects %}
         {% if other_projects|length > 3 %}
-        <div class="border-t border-border pt-8">
-          <h3 class="text-xs font-semibold uppercase tracking-widest text-text-muted mb-5">Other projects</h3>
+        <div class="reveal">
+          <p class="font-mono text-xs font-semibold uppercase tracking-widest mb-5" style="color:var(--text-muted)">
+            More Experiments & CLI Tools
+          </p>
           <div class="space-y-3">
             {% for project in other_projects %}
             {% if not project.featured %}
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-border/50 hover:border-brand/30 transition-colors group">
-              <div>
-                <span class="font-medium text-text-primary group-hover:text-brand transition-colors text-sm">{{ project.title }}</span>
-                <span class="text-text-muted text-xs ml-3">{{ project.tech_stack }}</span>
+            <div class="flex items-center justify-between p-4 rounded-xl border transition-all hover:border-brand/40 group"
+                 style="background:var(--surface); border-color:var(--border)">
+              <div class="flex items-center gap-3 flex-1 min-w-0">
+                <span class="font-mono text-xs text-brand">▷</span>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-semibold text-sm group-hover:text-brand transition-colors truncate" style="color:var(--text-primary)">{{ project.title }}</span>
+                    <span class="font-mono text-[10px] px-1.5 py-0.5 rounded border" style="background:var(--bg); border-color:var(--border); color:var(--text-muted)">tool</span>
+                  </div>
+                  <p class="text-xs mt-0.5 truncate" style="color:var(--text-secondary)">{{ project.description|truncatechars:80 }}</p>
+                </div>
               </div>
-              <div class="flex gap-4 mt-1 sm:mt-0 text-xs font-medium">
+              <div class="flex gap-3 ml-4 text-xs font-semibold shrink-0">
                 {% if project.github_url %}
-                <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="text-text-secondary hover:text-brand transition-colors">GitHub ↗</a>
+                <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="text-brand hover:text-brand-hover transition-colors">GitHub ↗</a>
                 {% endif %}
                 {% if project.live_url %}
-                <a href="{{ project.live_url }}" target="_blank" rel="noopener" class="text-brand hover:text-brand-dim transition-colors">Live ↗</a>
+                <a href="{{ project.live_url }}" target="_blank" rel="noopener" class="hover:text-brand transition-colors" style="color:var(--text-secondary)">Live ↗</a>
                 {% endif %}
               </div>
             </div>
@@ -269,7 +493,7 @@
         {% endwith %}
 
         {% if not all_projects %}
-        <div class="text-text-muted text-center py-16 border border-dashed border-border rounded-xl text-sm">
+        <div class="text-center py-16 rounded-2xl border border-dashed text-sm reveal" style="border-color:var(--border); color:var(--text-muted)">
           <p class="mb-2">No projects yet.</p>
           <a href="/admin/core/project/add/" class="text-brand hover:underline">Add your first project →</a>
         </div>
@@ -278,76 +502,148 @@
       </div>
     </section>
 
-    <!-- ── CONTACT ── -->
-    <section id="contact" class="py-16 px-6 border-t border-border">
-      <div class="max-w-5xl mx-auto">
-
-        <div class="mb-10">
-          <p class="text-brand text-xs font-semibold uppercase tracking-widest mb-1">Say hello</p>
-          <h2 class="text-2xl font-bold text-text-primary">Contact</h2>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-          <div class="reveal">
-            <p class="text-text-secondary leading-relaxed mb-6 text-[15px]">
-              Got a project, opportunity, or just want to connect? I'd love to hear from you.
-            </p>
-            <div class="space-y-3 text-sm">
-              <div class="flex items-center gap-3 text-text-secondary">
-                <span class="text-brand text-xs">✉</span>
-                <a href="mailto:tishapatiencemalongo@gmail.com" class="hover:text-brand transition-colors">tishapatiencemalongo@gmail.com</a>
+    <!-- ── VISION ── -->
+    <section id="vision" class="py-20 px-5 sm:px-6 border-t" style="border-color:var(--border)">
+      <div class="max-w-6xl mx-auto">
+        <div class="rounded-2xl border p-8 sm:p-12 reveal" style="background: linear-gradient(135deg, rgba(255,92,0,0.08) 0%, var(--surface) 60%); border-color:var(--border)">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <p class="text-xs font-mono font-semibold uppercase tracking-widest text-brand mb-3 flex items-center gap-2">
+                <span>✦</span> What I'm building next
+              </p>
+              <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4" style="color:var(--text-primary)">
+                AI that helps people learn.
+              </h2>
+              <p class="text-base leading-relaxed mb-6" style="color:var(--text-secondary)">
+                I'm exploring ideas around accessible learning and AI-assisted education, including a project inspired by the experience of students with dyslexia — focusing on tailored text restructuring, comprehension assistance, and adaptive cognitive pacing.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 font-mono text-xs font-semibold px-3 py-1.5 rounded-lg border"
+                      style="background:var(--bg); border-color:var(--border); color:var(--text-secondary)">
+                  ✦ LLM Context Adaptation
+                </span>
+                <span class="inline-flex items-center gap-1.5 font-mono text-xs font-semibold px-3 py-1.5 rounded-lg border"
+                      style="background:var(--bg); border-color:var(--border); color:var(--text-secondary)">
+                  📖 Dyslexia-friendly Typography & Spacing
+                </span>
               </div>
-              <div class="flex items-center gap-3 text-text-secondary">
-                <span class="text-brand text-xs">⌥</span>
-                <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener" class="hover:text-brand transition-colors">github.com/Tisha-patience</a>
-              </div>
-              <div class="flex items-center gap-3 text-text-secondary">
-                <span class="text-brand text-xs">in</span>
-                <a href="https://www.linkedin.com/in/tisha-patience-malongo/" target="_blank" rel="noopener" class="hover:text-brand transition-colors">linkedin.com/in/tisha-patience-malongo</a>
+            </div>
+
+            <div class="flex justify-center lg:justify-end">
+              <div class="rounded-xl border p-5 w-full max-w-xs" style="background:var(--bg); border-color:var(--border)">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-brand text-[#0A0A0A]">NOW</span>
+                  <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                </div>
+                <h4 class="font-bold text-base mb-2" style="color:var(--text-primary)">AI Engineering</h4>
+                <p class="font-mono text-xs" style="color:var(--text-muted)">Learning • Building • Testing</p>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="reveal">
+    <!-- ── CONTACT ── -->
+    <section id="contact" class="py-20 px-5 sm:px-6 border-t" style="border-color:var(--border)">
+      <div class="max-w-6xl mx-auto space-y-12">
+
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-mono font-semibold uppercase tracking-widest text-brand mb-2 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+            Let's talk
+          </p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight" style="color:var(--text-primary)">
+            Have an opportunity or an idea?
+          </h2>
+          <p class="mt-3 text-base" style="color:var(--text-secondary)">
+            I'm open to junior software roles, internships, collaborations and conversations about building useful technology.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+          <!-- Left: contact links -->
+          <div class="lg:col-span-5 space-y-3 reveal">
+            <a href="mailto:tishapatiencemalongo@gmail.com"
+               class="contact-link group flex items-center gap-3.5 p-4 rounded-xl border transition-all"
+               style="background:var(--surface); border-color:var(--border)">
+              <div class="p-2.5 rounded-lg border text-brand" style="background:var(--bg); border-color:var(--border)">✉</div>
+              <div>
+                <span class="block text-[11px] font-mono uppercase" style="color:var(--text-muted)">Email</span>
+                <span class="text-sm font-semibold group-hover:text-brand transition-colors break-all" style="color:var(--text-primary)">tishapatiencemalongo@gmail.com</span>
+              </div>
+            </a>
+
+            <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener"
+               class="contact-link group flex items-center gap-3.5 p-4 rounded-xl border transition-all"
+               style="background:var(--surface); border-color:var(--border)">
+              <div class="p-2.5 rounded-lg border text-brand" style="background:var(--bg); border-color:var(--border)">⌥</div>
+              <div>
+                <span class="block text-[11px] font-mono uppercase" style="color:var(--text-muted)">GitHub</span>
+                <span class="text-sm font-semibold group-hover:text-brand transition-colors" style="color:var(--text-primary)">github.com/Tisha-patience</span>
+              </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/tisha-patience-malongo/" target="_blank" rel="noopener"
+               class="contact-link group flex items-center gap-3.5 p-4 rounded-xl border transition-all"
+               style="background:var(--surface); border-color:var(--border)">
+              <div class="p-2.5 rounded-lg border text-brand" style="background:var(--bg); border-color:var(--border)">in</div>
+              <div>
+                <span class="block text-[11px] font-mono uppercase" style="color:var(--text-muted)">LinkedIn</span>
+                <span class="text-sm font-semibold group-hover:text-brand transition-colors" style="color:var(--text-primary)">linkedin.com/in/tisha-patience-malongo</span>
+              </div>
+            </a>
+
+            <a href="https://x.com/Tisha_patience" target="_blank" rel="noopener"
+               class="contact-link group flex items-center gap-3.5 p-4 rounded-xl border transition-all"
+               style="background:var(--surface); border-color:var(--border)">
+              <div class="p-2.5 rounded-lg border text-brand" style="background:var(--bg); border-color:var(--border)">x</div>
+              <div>
+                <span class="block text-[11px] font-mono uppercase" style="color:var(--text-muted)">Twitter</span>
+                <span class="text-sm font-semibold group-hover:text-brand transition-colors" style="color:var(--text-primary)">x.com/Tisha_patience</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Right: form -->
+          <div class="lg:col-span-7 rounded-2xl border p-6 sm:p-8 reveal"
+               style="background:var(--surface); border-color:var(--border)">
+
             {% for message in messages %}
-            <div class="text-sm mb-4 px-4 py-3 rounded border
-              {% if message.tags == 'success' %}border-brand/40 text-brand bg-brand/5{% else %}border-red-500/40 text-red-400 bg-red-500/5{% endif %}">
+            <div class="mb-5 p-4 rounded-xl border text-sm flex items-start gap-3
+              {% if message.tags == 'success' %}border-emerald-500/40 text-emerald-400 bg-emerald-950/30{% else %}border-red-500/40 text-red-400 bg-red-950/30{% endif %}">
               {{ message }}
             </div>
             {% endfor %}
 
             <form method="POST" action="#contact" class="space-y-4">
               {% csrf_token %}
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-mono font-semibold uppercase" style="color:var(--text-muted)">Name</label>
                   {{ contact_form.name }}
-                  {% if contact_form.name.errors %}
-                    <p class="text-red-400 text-xs mt-1">{{ contact_form.name.errors.0 }}</p>
-                  {% endif %}
+                  {% if contact_form.name.errors %}<p class="text-[11px] text-red-400 mt-1">{{ contact_form.name.errors.0 }}</p>{% endif %}
                 </div>
-                <div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-mono font-semibold uppercase" style="color:var(--text-muted)">Email</label>
                   {{ contact_form.email }}
-                  {% if contact_form.email.errors %}
-                    <p class="text-red-400 text-xs mt-1">{{ contact_form.email.errors.0 }}</p>
-                  {% endif %}
+                  {% if contact_form.email.errors %}<p class="text-[11px] text-red-400 mt-1">{{ contact_form.email.errors.0 }}</p>{% endif %}
                 </div>
               </div>
-              <div>
+              <div class="space-y-1.5">
+                <label class="block text-xs font-mono font-semibold uppercase" style="color:var(--text-muted)">Subject</label>
                 {{ contact_form.subject }}
-                {% if contact_form.subject.errors %}
-                  <p class="text-red-400 text-xs mt-1">{{ contact_form.subject.errors.0 }}</p>
-                {% endif %}
+                {% if contact_form.subject.errors %}<p class="text-[11px] text-red-400 mt-1">{{ contact_form.subject.errors.0 }}</p>{% endif %}
               </div>
-              <div>
+              <div class="space-y-1.5">
+                <label class="block text-xs font-mono font-semibold uppercase" style="color:var(--text-muted)">Message</label>
                 {{ contact_form.message }}
-                {% if contact_form.message.errors %}
-                  <p class="text-red-400 text-xs mt-1">{{ contact_form.message.errors.0 }}</p>
-                {% endif %}
+                {% if contact_form.message.errors %}<p class="text-[11px] text-red-400 mt-1">{{ contact_form.message.errors.0 }}</p>{% endif %}
               </div>
               <button type="submit"
-                class="text-sm font-semibold bg-brand text-ink px-6 py-2.5 rounded w-full hover:bg-brand-dim transition-colors">
-                Send message →
+                class="inline-flex items-center gap-2 bg-brand text-[#0A0A0A] font-bold text-sm px-6 py-3 rounded-lg hover:bg-brand-hover transition-colors w-full sm:w-auto justify-center">
+                Send message ✈
               </button>
             </form>
           </div>
@@ -358,19 +654,74 @@
   </main>
 
   <!-- ── FOOTER ── -->
-  <footer class="relative z-10 border-t border-border py-6 px-6">
-    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-4 text-xs text-text-muted">
-        <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener" class="hover:text-brand transition-colors">GitHub</a>
-        <span>·</span>
-        <a href="https://www.linkedin.com/in/tisha-patience-malongo/" target="_blank" rel="noopener" class="hover:text-brand transition-colors">LinkedIn</a>
-        <span>·</span>
-        <a href="mailto:tishapatiencemalongo@gmail.com" class="hover:text-brand transition-colors">Email</a>
+  <footer class="border-t px-5 sm:px-6 py-8" style="border-color:var(--border); background:var(--bg)">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-2 h-2 rounded-full bg-brand"></span>
+          <strong class="text-sm font-bold" style="color:var(--text-primary)">Tisha Patience Malongo</strong>
+        </div>
+        <p class="text-xs" style="color:var(--text-muted)">
+          © 2026 Tisha Patience Malongo. Built with clean architecture, modern web technologies & curiosity.
+        </p>
       </div>
-      <p class="text-xs text-text-muted">Built by Tisha Patience Malongo · 2026</p>
+      <div class="flex items-center gap-3">
+        <a href="mailto:tishapatiencemalongo@gmail.com"
+           class="footer-icon p-2 rounded-lg border transition-colors"
+           style="border-color:var(--border); background:var(--surface); color:var(--text-secondary)"
+           title="Email">✉</a>
+        <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener"
+           class="footer-icon p-2 rounded-lg border transition-colors"
+           style="border-color:var(--border); background:var(--surface); color:var(--text-secondary)"
+           title="GitHub">⌥</a>
+        <a href="https://www.linkedin.com/in/tisha-patience-malongo/" target="_blank" rel="noopener"
+           class="footer-icon p-2 rounded-lg border transition-colors"
+           style="border-color:var(--border); background:var(--surface); color:var(--text-secondary)"
+           title="LinkedIn">in</a>
+        <a href="https://x.com/Tisha_patience" target="_blank" rel="noopener"
+           class="footer-icon p-2 rounded-lg border transition-colors"
+           style="border-color:var(--border); background:var(--surface); color:var(--text-secondary)"
+           title="X">x</a>
+        <button onclick="window.scrollTo({top:0,behavior:'smooth'})"
+           class="footer-icon p-2 rounded-lg border transition-colors"
+           style="border-color:var(--border); background:var(--surface); color:var(--text-secondary)"
+           title="Back to top">↑</button>
+      </div>
     </div>
   </footer>
 
   <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    function toggleTheme() {
+      const html = document.getElementById('html-root');
+      const icon = document.getElementById('theme-icon');
+      if (html.classList.contains('light')) {
+        html.classList.remove('light');
+        localStorage.setItem('theme', 'dark');
+        icon.textContent = '☀️';
+      } else {
+        html.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        icon.textContent = '🌙';
+      }
+    }
+    if (localStorage.getItem('theme') === 'light') {
+      document.getElementById('theme-icon').textContent = '🌙';
+    }
+
+    function filterSkills(category) {
+      const groups = document.querySelectorAll('.skill-group');
+      const btns = document.querySelectorAll('.skill-filter-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      document.querySelector(`[data-filter="${category}"]`).classList.add('active');
+      groups.forEach(g => {
+        if (category === 'all' || g.dataset.category === category) {
+          g.style.display = 'block';
+        } else {
+          g.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
 </html>

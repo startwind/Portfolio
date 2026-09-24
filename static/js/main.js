@@ -1,147 +1,62 @@
-/* ── Theme toggle ── */
-(function () {
-  const html = document.documentElement;
-  const toggle = document.getElementById('theme-toggle');
-  if (!toggle) return;
-
-  function setTheme(isLight) {
-    html.classList.toggle('light', isLight);
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    toggle.setAttribute('aria-pressed', String(isLight));
-    toggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
-  }
-
-  setTheme(localStorage.getItem('theme') === 'light');
-
-  toggle.addEventListener('click', () => {
-    setTheme(!html.classList.contains('light'));
-  });
-})();
-
-
 /* ── Typed hero text ── */
 (function () {
   const phrases = [
-    'building with Python & Django.',
-    'learning something new every day.',
-    'turning ideas into working software.',
-    'open to junior roles & opportunities.',
+    'I build with Python and Django.',
+    'I am learning to engineer with LLMs.',
+    'I care about clean, tested software.',
+    'I build tools for real problems.',
   ];
-
   const el = document.getElementById('typed-text');
   if (!el) return;
-
-  let phraseIndex = 0;
-  let charIndex = 0;
-  let deleting = false;
-
-  function type() {
-    const current = phrases[phraseIndex];
-
-    if (!deleting) {
-      el.textContent = current.slice(0, charIndex + 1);
-      charIndex++;
-      if (charIndex === current.length) {
-        deleting = true;
-        setTimeout(type, 2200);
-        return;
-      }
+  let pi = 0, ci = 0, del = false;
+  function tick() {
+    const cur = phrases[pi];
+    if (!del) {
+      el.textContent = cur.slice(0, ++ci);
+      if (ci === cur.length) { del = true; setTimeout(tick, 2000); return; }
     } else {
-      el.textContent = current.slice(0, charIndex - 1);
-      charIndex--;
-      if (charIndex === 0) {
-        deleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-      }
+      el.textContent = cur.slice(0, --ci);
+      if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
     }
-    setTimeout(type, deleting ? 45 : 70);
+    setTimeout(tick, del ? 40 : 65);
   }
-
-  setTimeout(type, 900);
+  setTimeout(tick, 800);
 })();
-
 
 /* ── Scroll reveal ── */
 (function () {
   const targets = document.querySelectorAll('.reveal');
-
   const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    },
-    { threshold: 0.12 }
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
   );
-
-  targets.forEach((el) => observer.observe(el));
+  targets.forEach(el => observer.observe(el));
 })();
 
-
-/* ── Skill bar animations (triggered when in view) ── */
+/* ── Active nav on scroll ── */
 (function () {
-  const bars = document.querySelectorAll('.skill-bar');
-  if (!bars.length) return;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const target = entry.target;
-          const width = target.getAttribute('data-width');
-          setTimeout(() => {
-            target.style.width = width + '%';
-          }, 150);
-          observer.unobserve(target);
-        }
-      });
-    },
-    { threshold: 0.3 }
-  );
-
-  bars.forEach((bar) => observer.observe(bar));
-})();
-
-
-/* ── Active nav link highlight on scroll ── */
-(function () {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('nav a[href^="#"]');
-
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
   function onScroll() {
     let current = '';
-    sections.forEach((section) => {
-      const top = section.offsetTop - 80;
-      if (window.scrollY >= top) {
-        current = section.getAttribute('id');
-      }
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
     });
-
-    navLinks.forEach((link) => {
-      link.classList.remove('text-brand');
-      link.classList.add('text-text-secondary');
-      if (link.getAttribute('href') === '#' + current) {
-        link.classList.add('text-brand');
-        link.classList.remove('text-text-secondary');
-      }
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === '#' + current
+        ? 'var(--text-primary)'
+        : 'var(--text-secondary)';
     });
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
 })();
 
-
-/* ── Smooth scroll for anchor links ── */
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+/* ── Smooth scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
     if (href === '#') return;
     const target = document.querySelector(href);
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 });

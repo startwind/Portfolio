@@ -1,0 +1,52 @@
+name: Auto Release on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate version tag
+        id: tag
+        run: |
+          LATEST=""
+          while IFS= read -r TAG; do
+            if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              LATEST="$TAG"
+              break
+            fi
+          done < <(git for-each-ref --sort=-version:refname --format='%(refname:strip=2)' refs/tags)
+          if [ -z "$LATEST" ]; then
+            VERSION="v0.1.0"
+            TITLE="v0.1.0 — First production release"
+          else
+            IFS=. read -r MAJOR MINOR PATCH <<< "${LATEST#v}"
+            VERSION="v$MAJOR.$MINOR.$((PATCH + 1))"
+            TITLE="$VERSION"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+          echo "Tagging as $VERSION"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.version }}
+          name: ${{ steps.tag.outputs.title }}
+          body: |
+            Automated release from push to main.
+            Commit: ${{ github.sha }}
+            Message: ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
