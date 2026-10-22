@@ -5,6 +5,7 @@
     'I am learning to engineer with LLMs.',
     'I care about clean, tested software.',
     'I build tools for real problems.',
+    "I'm training in IoT & embedded systems.",
   ];
   const el = document.getElementById('typed-text');
   if (!el) return;
