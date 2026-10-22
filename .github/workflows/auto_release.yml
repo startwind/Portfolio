@@ -11,6 +11,10 @@ jobs:
     permissions:
       contents: write
 
+    outputs:
+      version: ${{ steps.tag.outputs.version }}
+
+
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -50,3 +54,10 @@ jobs:
             Message: ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
+
+  deploy:
+    needs: release
+    uses: ./.github/workflows/deploy.yml
+    with:
+      ref: ${{ needs.release.outputs.version }}
+    secrets: inherit
